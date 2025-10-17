@@ -17,4 +17,7 @@ dependencies:
 
   # Development and utilities
   - jupyterlab
+  - ipykernel
   - requests
+  - sodapy
+  - pyarrow
