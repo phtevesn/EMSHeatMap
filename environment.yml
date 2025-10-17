@@ -1,0 +1,20 @@
+name: ems-predictor
+channels:
+  - conda-forge
+dependencies:
+  # Core data science stack
+  - python=3.10
+  - pandas
+  - numpy
+  - scikit-learn
+
+  # Machine learning models
+  - xgboost
+
+  # Visualization
+  - folium
+  - streamlit
+
+  # Development and utilities
+  - jupyterlab
+  - requests
