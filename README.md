@@ -19,7 +19,8 @@ San Francisco: Fire Department and Emergency Medical Services Dispatched Calls f
 
 
 ---
-# Environment Set
+# Environment Setting
 ```zsh
 conda env create -f environment.yml
+python -m ipykernel install --user --name ems-predictor --display-name "Python (ems-env)"
 ```
