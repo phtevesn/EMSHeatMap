@@ -39,14 +39,22 @@ def which_grid(lats, lons, lat_in, lon_in):
 
     # single id (row-major)
     cell_id = (lat_idx - 1) * n_lon_cells + lon_idx
-    return lat_idx, lon_idx, cell_id
-'''
-lats, lons = create_grid_axes(0, 10, 0, 10, 2)
-print(lats)
-print(lons)
+    #return lat_idx, lon_idx, cell_id
+    return cell_id
 
-lat_in = 0  # → between 2 and 3 → lat_idx = 2
-lon_in = 2.5  # → between 1 and 2 → lon_idx = 1
 
-print(which_grid(lats, lons, lat_in, lon_in))
-'''
+def test():
+    min_in = [37.695916, -122.532444]
+    max_in = [37.837044, -122.358207]
+    lats, lons = create_grid_axes(min_in[0], max_in[0], min_in[1], max_in[1], 4)
+    print(lats)
+    print(lons)
+    cell = which_grid(lats, lons, (min_in[0]+max_in[0])/2, (min_in[1]+max_in[1])/2)
+    print(cell)
+    cell = which_grid(lats, lons, (min_in[0]+min_in[0])/2, (min_in[1]+min_in[1])/2)
+    print(cell)
+    cell = which_grid(lats, lons, (max_in[0]+max_in[0])/2, (max_in[1]+max_in[1])/2)
+    print(cell)
+    cell = which_grid(lats, lons, (max_in[0]+max_in[0]+1)/2, (max_in[1]+max_in[1]+1)/2)
+    print(cell)
+test()
