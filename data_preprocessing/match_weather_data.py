@@ -51,7 +51,7 @@ def match_weather_data(weather_data: pd.DataFrame = None, emt_data: pd.DataFrame
 
     merged = merged.dropna(subset=["latitude", "longitude"])
 
-    merged.to_parquet('../data/joined_ems_data_with_weather.parquet')
+    return merged
 
 
 if __name__ == "__main__":
