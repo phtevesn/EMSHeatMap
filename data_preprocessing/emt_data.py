@@ -37,6 +37,7 @@ def format_date_columns(df: pd.DataFrame):
     df['month'] = df['date'].dt.month
     df['day'] = df['date'].dt.day
     df['time'] = df['date'].dt.time
+    df['date'] = pd.to_datetime(df[['year', 'month', 'day']])
 
     # Drop original columns (not needed anymore)
     df = df.drop(columns=['received_dttm'])
@@ -84,5 +85,13 @@ def get_emt_data(limit: int = 1000):
     df = df[
         ['call_number', 'incident_number', 'date', 'year', 'month', 'day', 'hour', 'longitude', 'latitude']]
 
-    df.to_parquet('../data/processed_ems_data.parquet', index=False)
+    return df
+
+
+if __name__ == "__main__":
+    emt_data = get_emt_data(limit=8000000)
+    emt_data.to_parquet('../data/ready_emt_data.parquet')
+
+
+
 
