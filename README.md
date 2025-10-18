@@ -39,5 +39,8 @@ San Francisco: Fire Department and Emergency Medical Services Dispatched Calls f
 
 City of Costa Mesa California Police Repords [Link to Competetor Map](https://apps.costamesaca.gov/gismaps1/apps/experiencebuilder/experience/?id=906826b049794ca493700acc0f2e91ac).
 
+# Coordinates
+max_in =[37.875808, -122.326536]
+min_in =[37.680158, -122.560339]
 
 ---
