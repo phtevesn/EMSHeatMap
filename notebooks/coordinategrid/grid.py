@@ -15,13 +15,7 @@ def create_grid_axes(min_lat, max_lat, min_lon, max_lon, levels):
     return latitudes, longitudes
     
 
-
 def which_grid(lats, lons, lat_in, lon_in):
-    """
-    lats, lons: sorted coordinate breakpoints (length >= 2)
-    Returns: (lat_idx, lon_idx, cell_id) all 1-based.
-             cell_id is row-major: ((lat_idx-1)*num_lon_cells + lon_idx).
-    """
     # ensure ascending (in case you built them descending)
     if lats[0] > lats[-1]:
         lats = list(reversed(lats))
@@ -48,7 +42,7 @@ def which_grid(lats, lons, lat_in, lon_in):
     return lat_idx, lon_idx, cell_id
 
 
-
+'''
 lats, lons = create_grid_axes(0, 10, 0, 10, 2)
 print(lats)
 print(lons)
@@ -57,3 +51,4 @@ lat_in = 0  # → between 2 and 3 → lat_idx = 2
 lon_in = 2.5  # → between 1 and 2 → lon_idx = 1
 
 print(which_grid(lats, lons, lat_in, lon_in))
+'''
