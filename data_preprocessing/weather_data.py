@@ -22,11 +22,22 @@ def load_raw_weather_data(downtown_path: str, airport_path: str):
 
     weather_df = pd.concat([downtown_df, airport_df], ignore_index=True)
 
+    weather_df = weather_df.rename(columns={
+        'TMAX (Degrees Fahrenheit)': 'fmax',
+        'TMIN (Degrees Fahrenheit)': 'fmin',
+        'PRCP (Inches)': 'prcp_in',
+        'SNOW (Inches)': 'snow_in',
+        'SNWD (Inches)': 'snwd_in',
+    })
+
+    # Then reorder columns to the desired order:
+    weather_df = weather_df[['Date', 'fmax', 'fmin', 'prcp_in', 'snow_in', 'snwd_in', 'latitude', 'longitude']]
+
     return weather_df
 
 
 def format_date_columns(weather_df: pd.DataFrame):
-    if 'date' not in weather_df.columns:
+    if 'Date' not in weather_df.columns:
         raise ValueError("df must contain a 'date' column")
 
     # Convert to datetime dtype
