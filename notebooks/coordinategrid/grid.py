@@ -40,8 +40,6 @@ def which_grid(lats, lons, lat_in, lon_in):
     # single id (row-major)
     cell_id = (lat_idx - 1) * n_lon_cells + lon_idx
     return lat_idx, lon_idx, cell_id
-
-
 '''
 lats, lons = create_grid_axes(0, 10, 0, 10, 2)
 print(lats)
