@@ -1,11 +1,7 @@
 # TODO
-- Find ems dataset
-- Find weather dataset
 - Feature engineering
 - Model training/tuning
 - Model evaluation
-- Create Folium heatmap
-- Create website streamlit
 
 ---
 
