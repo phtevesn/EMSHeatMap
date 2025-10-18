@@ -2,7 +2,7 @@ import pandas as pd
 import faiss
 
 
-def match_weather_data(weather_data: pd.DataFrame, emt_data: pd.DataFrame):
+def match_weather_data(weather_data: pd.DataFrame = None, emt_data: pd.DataFrame = None):
     weather_required_columns = ['year', 'month', 'day', 'latitude', 'longitude']
     emt_required_columns = ['year', 'month', 'day', 'latitude', 'longitude']
 
@@ -15,11 +15,6 @@ def match_weather_data(weather_data: pd.DataFrame, emt_data: pd.DataFrame):
     missing_emt_cols = [col for col in emt_required_columns if col not in emt_data.columns]
     if missing_emt_cols:
         raise ValueError(f"emt_data is missing columns: {missing_emt_cols}")
-
-
-    # Prepare the data
-    emt_data['date'] = pd.to_datetime(emt_data[['year', 'month', 'day']])
-    weather_data['date'] = pd.to_datetime(weather_data[['year', 'month', 'day']])
 
     # Unique weather station coords
     weather_coords = weather_data[['latitude', 'longitude']].drop_duplicates().to_numpy().astype('float64')
@@ -53,6 +48,8 @@ def match_weather_data(weather_data: pd.DataFrame, emt_data: pd.DataFrame):
     merged = merged.rename(columns={'month_x': 'month'})
     merged = merged.rename(columns={'longitude_x': 'longitude'})
     merged = merged.rename(columns={'latitude_x': 'latitude'})
+
+    merged = merged.dropna(subset=["latitude", "longitude"])
 
     merged.to_parquet('../data/joined_ems_data_with_weather.parquet')
 
