@@ -40,20 +40,10 @@ st.write("Welcome to the EMS Prediction Atlas — an open-source, real-time heat
 selected_city = st.sidebar.selectbox("Select City", ["San Francisco", "New York"])
 notes, maps = st.columns([1,3], gap="small")
 # Map selection
-if selected_city == "San Francisco":
-    with maps:
-        st.markdown("<h1 style='text-align: center;'>Heat Map</h1>", unsafe_allow_html=True)
-        st_folium(create_heatmap(selected_city), width=1120, height=500)  
+with maps:
+    st.markdown("<h1 style='text-align: center;'>Heat Map</h1>", unsafe_allow_html=True)
+    st_folium(create_heatmap(selected_city), width=1120, height=500)  
 
-    with notes:
-        st.markdown("<h1 style='text-align: center;'>Information</h1>", unsafe_allow_html=True)
-        st.write("Ipsum Lorem")
-
-elif selected_city == "New York":
-    with maps:
-        st.markdown("<h1 style='text-align: center;'>Heat Map</h1>", unsafe_allow_html=True)
-        st_folium(create_heatmap(selected_city), width=1120, height=500)  
-
-    with notes:
-        st.markdown("<h1 style='text-align: center;'>Information</h1>", unsafe_allow_html=True)
-        st.write("Ipsum Lorem")
+with notes:
+    st.markdown("<h1 style='text-align: center;'>Information</h1>", unsafe_allow_html=True)
+    st.write("Ipsum Lorem")
