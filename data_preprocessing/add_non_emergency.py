@@ -1,8 +1,7 @@
 import pandas as pd
-import numpy as np
 
 
-def add_non_emergency(emergency_df: pd.DataFrame):
+def add_non_emergency(emergency_df: pd.DataFrame, total_cells):
     """
     Expands the emergency call dataframe to include non-emergency time slots
     and retains the count of emergencies per hour as the target variable.
@@ -25,8 +24,7 @@ def add_non_emergency(emergency_df: pd.DataFrame):
     weather_cols = [col for col in emergency_df.columns if col not in known_cols]
 
     # --- 2. Create the Full Scaffold (all hours, all cells) ---
-
-    all_cells = emergency_df['cell'].unique()
+    all_cells = range(1, total_cells + 1)
     min_hour = emergency_df['date_hour'].min()
     max_hour = emergency_df['date_hour'].max()
     all_hours = pd.date_range(start=min_hour, end=max_hour, freq='H')

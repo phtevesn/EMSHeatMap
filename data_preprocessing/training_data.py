@@ -8,6 +8,9 @@ from grid import find_cells, grid_to_coords
 
 levels = 4
 RAW_EMT_DATA_PATH = '../data/2000_2006_subset_raw_emt_data.parquet'
+grid_columns = 50
+grid_rows = 50
+total_cells = grid_columns * grid_rows
 
 
 def get_training_data():
@@ -18,8 +21,8 @@ def get_training_data():
 
     emt_data = emt_data.dropna(subset=['latitude', 'longitude'])
 
-    emt_data, lats, lons = find_cells(emt_data, levels)
-    emt_data = add_non_emergency(emt_data)
+    emt_data, lats, lons = find_cells(emt_data, grid_columns, grid_rows)
+    emt_data = add_non_emergency(emt_data, total_cells)
 
     emt_data["latitude"] = emt_data.apply(
         lambda r: grid_to_coords(r["cell"], lats, lons)[0],

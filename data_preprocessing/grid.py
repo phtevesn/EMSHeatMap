@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from bisect import bisect_right
 
-def create_grid_axes(min_lat, max_lat, min_lon, max_lon, levels):
+def old_create_grid_axes(min_lat, max_lat, min_lon, max_lon, levels):
     def split_range(min_val, max_val, levels):
         if levels == 0:
             return [min_val, max_val]
@@ -16,7 +16,7 @@ def create_grid_axes(min_lat, max_lat, min_lon, max_lon, levels):
     return latitudes, longitudes
 
 
-def other_create_grid_axes(min_lat, max_lat, min_lon, max_lon, num_lat_cells, num_lon_cells):
+def create_grid_axes(min_lat, max_lat, min_lon, max_lon, num_lon_cells, num_lat_cells):
     """
     Creates grid axes with a custom number of cells for each dimension.
     """
@@ -74,11 +74,11 @@ def test():
     print(cell)
 
 
-def find_cells(df: pd.DataFrame, levels):
+def find_cells(df: pd.DataFrame, num_cols, num_rows):
     min_in = [min(df['latitude'].unique().tolist()), min(df['longitude'].unique().tolist())]
     max_in = [max(df['latitude'].unique().tolist()), max(df['longitude'].unique().tolist())]
 
-    lats, lons = create_grid_axes(min_in[0], max_in[0], min_in[1], max_in[1], levels)
+    lats, lons = create_grid_axes(min_in[0], max_in[0], min_in[1], max_in[1], num_cols, num_rows)
 
     df['cell'] = df.apply(
         lambda row: which_grid(lats, lons, row['latitude'], row['longitude']),
