@@ -106,11 +106,11 @@ def grid_to_coords(cell_id, lats, lons):
     lon_bl = lons[lon_bin0]
 
     '''
-    df["latitude_new"] = df.apply(
+    df["latitude"] = df.apply(
     lambda r: grid_to_coords(r["cell_id"], lats, lons)[0],
     axis=1
     )
-    df["longitude_new"] = df.apply(
+    df["longitude"] = df.apply(
         lambda r: grid_to_coords(r["cell_id"], lats, lons)[1],
         axis=1
     )
