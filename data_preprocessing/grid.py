@@ -87,3 +87,32 @@ def find_cells(df: pd.DataFrame, levels):
 
     df.to_parquet('../data/ready_emt_data.parquet')
 
+
+def grid_to_coords(cell_id, lats, lons):
+    """
+    Given a 1-based grid cell ID (as returned by which_grid),
+    return the bottom-left coordinate (lat, lon).
+    """
+    n_lat_cells = len(lats) - 1
+    n_lon_cells = len(lons) - 1
+
+    # convert 1-based cell_id back to 0-based grid indices
+    cell_id -= 1
+    lat_bin0 = cell_id // n_lon_cells  # row index (0-based)
+    lon_bin0 = cell_id %  n_lon_cells  # col index (0-based)
+
+    # bottom-left corner
+    lat_bl = lats[lat_bin0]
+    lon_bl = lons[lon_bin0]
+
+    '''
+    df["latitude_new"] = df.apply(
+    lambda r: grid_to_coords(r["cell_id"], lats, lons)[0],
+    axis=1
+    )
+    df["longitude_new"] = df.apply(
+        lambda r: grid_to_coords(r["cell_id"], lats, lons)[1],
+        axis=1
+    )
+    '''
+    return lat_bl, lon_bl
