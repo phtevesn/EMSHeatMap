@@ -6,14 +6,12 @@
 ---
 
 # Problem Statement
-When responding to emergencies, every second counts. First responders need to be able to quickly get to the 
-scene of an emergency.  This is where the EMS Predictor comes in.  This application will create a heatmap that 
-shows the display areas that are at risk of being hit by an emergency. 
+Emergency Medical Services (EMS) play a critical role in ensuring rapid response to emergencies, yet many cities struggle to efficiently allocate resources due to fluctuating call volumes, uneven geographic distribution, and limited predictive insight into where emergencies are most likely to occur. Traditional dispatch systems rely on historical averages and static coverage models, which fail to adapt to real-time changes in population density, time of day, and environmental factors.
 
 ---
 
 # Proposed Solution
-An open-source, real-time heat map platform that visualizes the predicted volume and distribution of emergency services needs accross a geographical area given various data from previous emergencies and taking into account changing variables such as weather. This program will also categorize data by incident type, time, and location, providing actionable insights for multiple stakeholders.
+An open-source, real-time, data-driven heat map platform that visualizes the predicted volume and distribution of emergency services needs accross a geographical area given various data from previous emergencies and taking into account changing variables such as weather. By aggregating open emergency response datasets and applying predictive modeling, the system will generate an interactive heat map highlighting current and forecasted hotspots of emergency activity. This tool will empower decision-makers, analysts, and first responders to optimize deployment strategies, reduce response times, and improve overall community resilience.
 
 ---
 
