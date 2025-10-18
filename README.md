@@ -17,7 +17,7 @@ An open-source, real-time heat map platform that visualizes the predicted volume
 
 ---
 
-# Competetors 
+# Competitors 
 The City of Costa Mesa California has a similar open-source product that displays types of incidents throughout the city and some details about the incident but has a narrower data set, ranging from the previous 24 hours to the last 14 days. This map will show all incidents recorded and where it has happened requiring viewers to find a conclusion for themselves given the data shown on the map. Our product will compile data from a much larger scope and from multiple avenues of information allowing for predictive heat map of the city to be produced, indentifying areas that may be prone to incidents, allowing the everyday consumer to make safe decicions and first responders to be prepared for potential emergencies.
 
 ---
