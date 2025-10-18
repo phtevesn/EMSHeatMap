@@ -85,7 +85,7 @@ def find_cells(df: pd.DataFrame, levels):
         axis=1
     )
 
-    df.to_parquet('../data/ready_emt_data.parquet')
+    return df
 
 
 def grid_to_coords(cell_id, lats, lons):
