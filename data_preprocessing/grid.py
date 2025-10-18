@@ -1,4 +1,5 @@
-
+import pandas as pd
+import numpy as np
 from bisect import bisect_right
 
 def create_grid_axes(min_lat, max_lat, min_lon, max_lon, levels):
@@ -13,6 +14,19 @@ def create_grid_axes(min_lat, max_lat, min_lon, max_lon, levels):
     latitudes = split_range(min_lat, max_lat, levels)
     longitudes = split_range(min_lon, max_lon, levels)
     return latitudes, longitudes
+
+
+def other_create_grid_axes(min_lat, max_lat, min_lon, max_lon, num_lat_cells, num_lon_cells):
+    """
+    Creates grid axes with a custom number of cells for each dimension.
+    """
+    # For N cells, you need N+1 boundary lines.
+    # np.linspace creates evenly spaced numbers over a specified interval.
+    latitudes = np.linspace(min_lat, max_lat, num_lat_cells + 1)
+    longitudes = np.linspace(min_lon, max_lon, num_lon_cells + 1)
+
+    # Convert numpy arrays to lists to match the input type for which_grid
+    return latitudes.tolist(), longitudes.tolist()
     
 
 def which_grid(lats, lons, lat_in, lon_in):
@@ -27,6 +41,7 @@ def which_grid(lats, lons, lat_in, lon_in):
 
     # (optional) bounds check
     if not (lats[0] <= lat_in <= lats[-1]) or not (lons[0] <= lon_in <= lons[-1]):
+        print(lats[0], "<=", lat_in, "\n", lons[0], "<=", lon_in, "<=", lons[-1])
         raise ValueError("Point is outside the grid bounds.")
 
     # 0-based bin index = rightmost breakpoint ≤ value
@@ -57,4 +72,18 @@ def test():
     print(cell)
     cell = which_grid(lats, lons, (max_in[0]+max_in[0]+1)/2, (max_in[1]+max_in[1]+1)/2)
     print(cell)
-test()
+
+
+def find_cells(df: pd.DataFrame, levels):
+    min_in = [min(df['latitude'].unique().tolist()), min(df['longitude'].unique().tolist())]
+    max_in = [max(df['latitude'].unique().tolist()), max(df['longitude'].unique().tolist())]
+
+    lats, lons = create_grid_axes(min_in[0], max_in[0], min_in[1], max_in[1], levels)
+
+    df['cell'] = df.apply(
+        lambda row: which_grid(lats, lons, row['latitude'], row['longitude']),
+        axis=1
+    )
+
+    df.to_parquet('../data/ready_emt_data.parquet')
+

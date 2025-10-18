@@ -10,7 +10,9 @@
 ---
 
 # Problem Statement
-- When responding to emergencies, every second counts. First responders need to be able
+When responding to emergencies, every second counts. First responders need to be able to quickly get to the 
+scene of an emergency.  This is where the EMS Predictor comes in.  This application will create a heatmap that 
+shows the display areas that are at risk of being hit by an emergency. 
 
 
 ---
