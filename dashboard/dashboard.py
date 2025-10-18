@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import folium
+import numpy as np
 from numpy.random import default_rng as rng
 from folium.plugins import HeatMap
 from streamlit_folium import st_folium
@@ -10,22 +11,23 @@ st.set_page_config(
     initial_sidebar_state="expanded",
     layout="wide"
 )
+city_coords = {
+    "San Francisco" : [37.76, -122.4],
+    "New York" : [40.7128, -74.0060],
+}
 
-# San Fran dummy-data map
-sf_df = pd.DataFrame(
-    rng(0).standard_normal((1000, 2)) / [50, 50] + [37.76, -122.4],
-    columns=["lat", "lon"],
-)
-sf_heat = folium.Map(location=[37.76, -122.4], zoom_start=12)
-HeatMap(sf_df[['lat', 'lon']].values, radius=10).add_to(sf_heat)
+def create_heatmap(city:str):
+    coordinates = city_coords[city]
+    rng = np.random.default_rng(0)
+    df = pd.DataFrame(
+        rng.standard_normal((1000, 2)) / [50, 50] + coordinates,
+        columns=["lat", "lon"],
+    )
+    heat = folium.Map(location=coordinates, zoom_start=12)
+    HeatMap(df[['lat', 'lon']].values, radius=10).add_to(heat)
 
-# New York dummy-data map
-ny_df = pd.DataFrame(
-    rng(0).standard_normal((1000, 2)) / [50, 50] + [40.7128, -74.0060],
-    columns=["lat", "lon"],
-)
-ny_heat = folium.Map(location=[40.7128, -74.0060], zoom_start=12)
-HeatMap(ny_df[['lat', 'lon']].values, radius=10).add_to(ny_heat)
+    return heat
+
 
 # Title
 st.markdown("<h1 style='text-align: left;'>EMS Prediction Atlas</h1>", unsafe_allow_html=True)
@@ -38,20 +40,10 @@ st.write("Welcome to the EMS Prediction Atlas — an open-source, real-time heat
 selected_city = st.sidebar.selectbox("Select City", ["San Francisco", "New York"])
 notes, maps = st.columns([1,3], gap="small")
 # Map selection
-if selected_city == "San Francisco":
-    with maps:
-        st.markdown("<h1 style='text-align: center;'>Heat Map</h1>", unsafe_allow_html=True)
-        st_folium(sf_heat, width=1120, height=500)  
+with maps:
+    st.markdown("<h1 style='text-align: center;'>Heat Map</h1>", unsafe_allow_html=True)
+    st_folium(create_heatmap(selected_city), width=1120, height=500)  
 
-    with notes:
-        st.markdown("<h1 style='text-align: center;'>Information</h1>", unsafe_allow_html=True)
-        st.write("Ipsum Lorem")
-
-elif selected_city == "New York":
-    with maps:
-        st.markdown("<h1 style='text-align: center;'>Heat Map</h1>", unsafe_allow_html=True)
-        st_folium(ny_heat, width=1120, height=500)  
-
-    with notes:
-        st.markdown("<h1 style='text-align: center;'>Information</h1>", unsafe_allow_html=True)
-        st.write("Ipsum Lorem")
+with notes:
+    st.markdown("<h1 style='text-align: center;'>Information</h1>", unsafe_allow_html=True)
+    st.write("Ipsum Lorem")

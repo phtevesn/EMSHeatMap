@@ -6,18 +6,18 @@
 ---
 
 # Problem Statement
-When responding to emergencies, every second counts. First responders need to be able to quickly get to the 
-scene of an emergency.  This is where the EMS Predictor comes in.  This application will create a heatmap that 
-shows the display areas that are at risk of being hit by an emergency. 
+Emergency Medical Services (EMS) play a critical role in ensuring rapid response to emergencies, yet many cities struggle to efficiently allocate resources due to fluctuating call volumes, uneven geographic distribution, and limited predictive insight into where emergencies are most likely to occur. Traditional dispatch systems rely on historical averages and static coverage models, which fail to adapt to real-time changes in population density, time of day, and environmental factors.
 
 ---
 
 # Proposed Solution
-An open-source, real-time heat map platform that visualizes the predicted volume and distribution of emergency services needs accross a geographical area given various data from previous emergencies and taking into account changing variables such as weather. This program will also categorize data by incident type, time, and location, providing actionable insights for multiple stakeholders.
+The EMS Prediction Heatmap aims to address this challenge by developing a real-time, data-driven visualization tool that dynamically displays the amount of EMS calls accross a geographical area. By aggregating open emergency response datasets and applying predictive modeling, the system will generate an interactive heat map highlighting current and forecasted hotspots of emergency activity. This tool will empower decision-makers, analysts, and first responders to optimize deployment strategies, reduce response times, and improve overall community resilience.
 
 ---
 
 # Competitors 
+While some services like this do exist many of which are proprietary and limited by their data sets one-dimentional use-case. The opensource services also suffer from their limited data and fail to provide an emergency forecast.
+
 The City of Costa Mesa California has a similar open-source product that displays types of incidents throughout the city and some details about the incident but has a narrower data set, ranging from the previous 24 hours to the last 14 days. This map will show all incidents recorded and where it has happened requiring viewers to find a conclusion for themselves given the data shown on the map. Our product will compile data from a much larger scope and from multiple avenues of information allowing for predictive heat map of the city to be produced, indentifying areas that may be prone to incidents, allowing the everyday consumer to make safe decicions and first responders to be prepared for potential emergencies.
 
 ---
@@ -31,7 +31,7 @@ The City of Costa Mesa California has a similar open-source product that display
 ---
 
 # Potential Impact
-This project has the potential to benefit many different consumers whether it be for preparing public services for potential emergencies, or for the everyday person to be able to make safer choices. 
+This project has the potential to benefit many different consumers whether it be for preparing public services for potential emergencies, or for the everyday person to be able to make safer choices. (edit using google doc)
 
 ---
 # Sources
