@@ -85,7 +85,7 @@ def find_cells(df: pd.DataFrame, levels):
         axis=1
     )
 
-    return df
+    return df, lats, lons
 
 
 def grid_to_coords(cell_id, lats, lons):
