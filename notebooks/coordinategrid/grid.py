@@ -57,4 +57,6 @@ def test():
     print(cell)
     cell = which_grid(lats, lons, (max_in[0]+max_in[0]+1)/2, (max_in[1]+max_in[1]+1)/2)
     print(cell)
-test()
+
+if __name__ == "__main__":
+    test()
