@@ -74,9 +74,10 @@ def test():
     print(cell)
 
 
-def find_cells(df: pd.DataFrame, num_cols, num_rows):
-    min_in = [min(df['latitude'].unique().tolist()), min(df['longitude'].unique().tolist())]
-    max_in = [max(df['latitude'].unique().tolist()), max(df['longitude'].unique().tolist())]
+def find_cells(df: pd.DataFrame, num_cols, num_rows, min_in=None, max_in=None):
+    if min_in is None or max_in is None:
+        min_in = [min(df['latitude'].unique().tolist()), min(df['longitude'].unique().tolist())]
+        max_in = [max(df['latitude'].unique().tolist()), max(df['longitude'].unique().tolist())]
 
     lats, lons = create_grid_axes(min_in[0], max_in[0], min_in[1], max_in[1], num_cols, num_rows)
 
@@ -116,3 +117,96 @@ def grid_to_coords(cell_id, lats, lons):
     )
     '''
     return lat_bl, lon_bl
+
+
+def grid_to_coords_vectorized(cells, lats, lons):
+    """
+    Vectorized function to convert a series of cell IDs to their
+    bottom-left coordinates (latitude, longitude).
+
+    Args:
+        cells (pd.Series): A Pandas Series of 1-based cell IDs.
+        lats (list): A list of latitude boundary lines.
+        lons (list): A list of longitude boundary lines.
+
+    Returns:
+        tuple: A tuple containing two Pandas Series (latitude, longitude).
+    """
+    # Number of columns in the grid
+    n_lon_cells = len(lons) - 1
+
+    # Convert 1-based cell IDs to 0-based indices
+    # This is a fast, vectorized operation on the entire series
+    zero_based_cells = cells - 1
+
+    # Calculate the row (latitude) and column (longitude) indices for all cells at once
+    lat_indices = zero_based_cells // n_lon_cells
+    lon_indices = zero_based_cells % n_lon_cells
+
+    # Map the indices to the actual coordinate values
+    # .values is used to get the underlying NumPy array for faster indexing
+    lats_array = np.array(lats)
+    lons_array = np.array(lons)
+
+    latitudes = lats_array[lat_indices]
+    longitudes = lons_array[lon_indices]
+
+    return latitudes, longitudes
+
+
+# In grid.py
+
+def create_grid_geojson(lats, lons):
+    """
+    Creates a GeoJSON FeatureCollection of rectangular grid cells.
+
+    Args:
+        lats (list): A list of latitude boundary lines, sorted bottom to top.
+        lons (list): A list of longitude boundary lines, sorted left to right.
+
+    Returns:
+        dict: A GeoJSON-compliant dictionary.
+    """
+    features = []
+    n_lat_cells = len(lats) - 1
+    n_lon_cells = len(lons) - 1
+
+    # Loop through each grid cell coordinate
+    for i in range(n_lat_cells):
+        for j in range(n_lon_cells):
+            # Get the four corners of the cell
+            lat_start, lat_end = lats[i], lats[i + 1]
+            lon_start, lon_end = lons[j], lons[j + 1]
+
+            # Define the polygon for the cell in (lon, lat) order
+            coordinates = [[
+                [lon_start, lat_start],
+                [lon_end, lat_start],
+                [lon_end, lat_end],
+                [lon_start, lat_end],
+                [lon_start, lat_start]  # Close the loop
+            ]]
+
+            # Calculate the cell_id to match your training data
+            # This is the crucial link between your data and the map shape
+            cell_id = i * n_lon_cells + (j + 1)
+
+            # Create the GeoJSON 'Feature' object for this cell
+            feature = {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Polygon',
+                    'coordinates': coordinates,
+                },
+                'properties': {
+                    'cell_id': cell_id
+                }
+            }
+            features.append(feature)
+
+    # Combine all features into a 'FeatureCollection'
+    geojson = {
+        'type': 'FeatureCollection',
+        'features': features
+    }
+    return geojson

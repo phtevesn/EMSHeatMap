@@ -61,9 +61,6 @@ def set_time_1_hour(df: pd.DataFrame):
 
 
 def format_lat_lon_columns(df: pd.DataFrame):
-    if 'latitude' not in df.columns or 'longitude' not in df.columns:
-        raise ValueError("df must contain a 'latitude' and 'longitude' column")
-
     df['longitude'] = df['case_location'].apply(lambda x: x['coordinates'][0] if pd.notnull(x) else None)
     df['latitude'] = df['case_location'].apply(lambda x: x['coordinates'][1] if pd.notnull(x) else None)
 

@@ -9,7 +9,7 @@ from datetime import datetime
 # Load your final dataset
 # This assumes the data is in the same directory. Update the path if needed.
 try:
-    df = pd.read_parquet('../data/2000_2006_training_data.parquet')
+    df = pd.read_parquet('../data/2000_2006_32x32_training.parquet')
 except FileNotFoundError:
     print("Error: Data file not found. Please update the path to your dataset.")
     # Create a dummy dataframe based on your example to allow the script to run
