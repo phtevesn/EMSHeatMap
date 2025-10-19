@@ -31,7 +31,7 @@ The City of Costa Mesa California has a similar open-source product that display
 ---
 
 # Potential Impact
-This project has the potential to benefit many different consumers whether it be for preparing public services for potential emergencies, or for the everyday person to be able to make safer choices. (edit using google doc)
+This project has the potential to benefit many different consumers whether it be enabling citizens to make informed safety decisions by accessing transparent up-to-date information about emergency trends in their area, support government officials and emergency services in allocating resources efficiently by identifying high-risk zones and improving urban safety planning, or offering insights that allow businesses and logistics providers to strategically position products, services, and infrastructure in areas with demonstrated need.
 
 ---
 # Sources
